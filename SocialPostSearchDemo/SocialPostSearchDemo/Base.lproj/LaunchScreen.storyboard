@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="EHf-IW-A2E">
+            <objects>
+                <viewController id="01J-lp-oVM" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rQ6-Mu-vBt" userLabel="top">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="213"/>
+                                <color key="backgroundColor" red="0.92000000000000004" green="0.51519999999999999" blue="0.54218666660000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ig logo" translatesAutoresizingMaskIntoConstraints="NO" id="mLB-zL-A2Q">
+                                <rect key="frame" x="80" y="253" width="215" height="161"/>
+                                <color key="tintColor" red="0.92000000000000004" green="0.51519999999999999" blue="0.54218666660000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="mLB-zL-A2Q" secondAttribute="height" multiplier="4:3" id="PeE-hi-R9A"/>
+                                    <constraint firstAttribute="width" relation="lessThanOrEqual" constant="300" id="p7L-hW-GFL"/>
+                                </constraints>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yOu-pI-aka" userLabel="bottom">
+                                <rect key="frame" x="0.0" y="454" width="375" height="213"/>
+                                <color key="backgroundColor" red="0.92000000000000004" green="0.51519999999999999" blue="0.54218666660000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="0.92000000000000004" green="0.78200000000000003" blue="0.79120000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="rQ6-Mu-vBt" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="6Nm-w5-MlQ"/>
+                            <constraint firstItem="mLB-zL-A2Q" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="B49-lV-qtu"/>
+                            <constraint firstItem="mLB-zL-A2Q" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="EmG-AQ-aic"/>
+                            <constraint firstItem="yOu-pI-aka" firstAttribute="top" secondItem="mLB-zL-A2Q" secondAttribute="bottom" constant="40" id="Hyu-s2-N3v"/>
+                            <constraint firstItem="rQ6-Mu-vBt" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="LCj-wc-csz"/>
+                            <constraint firstAttribute="trailing" secondItem="yOu-pI-aka" secondAttribute="trailing" id="QnM-rM-tFR"/>
+                            <constraint firstItem="mLB-zL-A2Q" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" priority="999" constant="80" id="eho-gu-WmU"/>
+                            <constraint firstItem="mLB-zL-A2Q" firstAttribute="top" secondItem="rQ6-Mu-vBt" secondAttribute="bottom" constant="40" id="osB-lw-GCg"/>
+                            <constraint firstAttribute="trailing" secondItem="rQ6-Mu-vBt" secondAttribute="trailing" id="qoR-8A-rYb"/>
+                            <constraint firstAttribute="bottom" secondItem="yOu-pI-aka" secondAttribute="bottom" id="sUH-E6-h77"/>
+                            <constraint firstItem="yOu-pI-aka" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="yU3-ug-HqV"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="52" y="374.66266866566718"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="ig logo" width="1600" height="1200"/>
+    </resources>
+</document>

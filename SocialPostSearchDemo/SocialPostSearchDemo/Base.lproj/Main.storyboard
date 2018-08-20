@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="dRv-cm-8hR">
+    <device id="retina4_0" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="UxG-iQ-FWT">
+            <objects>
+                <viewController id="dRv-cm-8hR" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="kuk-6D-d5f">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LbQ-m9-vXG" userLabel="status bg">
+                                <rect key="frame" x="0.0" y="-30" width="320" height="50"/>
+                                <color key="backgroundColor" red="0.92000000000000004" green="0.5152000000000001" blue="0.54218666660000026" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="N0R-eI-LNz"/>
+                                </constraints>
+                            </view>
+                            <navigationBar contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OfK-Gd-1Ak">
+                                <rect key="frame" x="0.0" y="20" width="320" height="44"/>
+                                <color key="barTintColor" red="0.92000000000000004" green="0.78200000000000003" blue="0.79119999997727286" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <textAttributes key="titleTextAttributes">
+                                    <color key="textColor" red="0.44" green="0.29480000000000001" blue="0.30447999999999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </textAttributes>
+                                <items>
+                                    <navigationItem title="Post Search" id="9sj-Sk-e43"/>
+                                </items>
+                            </navigationBar>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Search &amp; results" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cTw-gy-Fgb">
+                                <rect key="frame" x="76" y="270" width="169" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="0.98726984040480648" blue="0.95999999999999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="OfK-Gd-1Ak" firstAttribute="leading" secondItem="kuk-6D-d5f" secondAttribute="leading" id="7kZ-BD-ddr"/>
+                            <constraint firstItem="OfK-Gd-1Ak" firstAttribute="top" secondItem="LbQ-m9-vXG" secondAttribute="bottom" id="QYm-CH-BOQ"/>
+                            <constraint firstAttribute="trailing" secondItem="OfK-Gd-1Ak" secondAttribute="trailing" id="TDv-xv-fZD"/>
+                            <constraint firstItem="OfK-Gd-1Ak" firstAttribute="top" secondItem="KHK-33-gBf" secondAttribute="top" id="duC-b5-qyc"/>
+                            <constraint firstItem="LbQ-m9-vXG" firstAttribute="trailing" secondItem="OfK-Gd-1Ak" secondAttribute="trailing" id="mMl-Ey-nNv"/>
+                            <constraint firstItem="LbQ-m9-vXG" firstAttribute="leading" secondItem="OfK-Gd-1Ak" secondAttribute="leading" id="sT3-Xk-pKt"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="KHK-33-gBf"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nxV-mp-ayx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="350.625" y="232.3943661971831"/>
+        </scene>
+    </scenes>
+</document>
