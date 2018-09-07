@@ -1,0 +1,22 @@
+PODS:
+  - SVProgressHUD (2.2.5)
+  - SwiftInstagram (1.1.1):
+    - SwiftInstagram/Core (= 1.1.1)
+  - SwiftInstagram/Core (1.1.1)
+
+DEPENDENCIES:
+  - SVProgressHUD
+  - SwiftInstagram (~> 1.1.1)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - SVProgressHUD
+    - SwiftInstagram
+
+SPEC CHECKSUMS:
+  SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
+  SwiftInstagram: 5f60415e522d1a7721073eb3a66f254a7c40fd63
+
+PODFILE CHECKSUM: 11f2e0383f63e3a2e26b4ff209e1ff930a89dae9
+
+COCOAPODS: 1.5.3

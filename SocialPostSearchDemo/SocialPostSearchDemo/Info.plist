@@ -45,5 +45,9 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>InstagramClientId</key>
+	<string>1f59b8b3d71e455b923e66a0981cdb5c</string>
+	<key>InstagramRedirectURI</key>
+	<string>http://example.com</string>
 </dict>
 </plist>

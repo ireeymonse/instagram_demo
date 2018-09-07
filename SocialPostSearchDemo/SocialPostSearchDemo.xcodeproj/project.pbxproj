@@ -12,9 +12,13 @@
 		10D19757212B42EF000E982C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 10D19756212B42EF000E982C /* Assets.xcassets */; };
 		10D1975A212B42EF000E982C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 10D19758212B42EF000E982C /* LaunchScreen.storyboard */; };
 		10D19763212B4352000E982C /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 10D19762212B4352000E982C /* README.md */; };
+		10EC4737212B564F0027C070 /* PostSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10EC4736212B564F0027C070 /* PostSearchViewController.swift */; };
+		FC3A1C22E52A4384EE18F7A8 /* Pods_SocialPostSearchDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F8D4D730F1302066C858DC3 /* Pods_SocialPostSearchDemo.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		091F56FE4EB4BAB074373434 /* Pods-SocialPostSearchDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocialPostSearchDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-SocialPostSearchDemo/Pods-SocialPostSearchDemo.release.xcconfig"; sourceTree = "<group>"; };
+		0B31A36078107DA828C7C305 /* Pods-SocialPostSearchDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocialPostSearchDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SocialPostSearchDemo/Pods-SocialPostSearchDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		10D1974C212B42EE000E982C /* SocialPostSearchDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SocialPostSearchDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		10D1974F212B42EE000E982C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		10D19754212B42EE000E982C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -22,6 +26,8 @@
 		10D19759212B42EF000E982C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		10D1975B212B42EF000E982C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		10D19762212B4352000E982C /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		10EC4736212B564F0027C070 /* PostSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostSearchViewController.swift; sourceTree = "<group>"; };
+		9F8D4D730F1302066C858DC3 /* Pods_SocialPostSearchDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SocialPostSearchDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +35,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FC3A1C22E52A4384EE18F7A8 /* Pods_SocialPostSearchDemo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -41,6 +48,8 @@
 				10D19762212B4352000E982C /* README.md */,
 				10D1974E212B42EE000E982C /* SocialPostSearchDemo */,
 				10D1974D212B42EE000E982C /* Products */,
+				F1680E4E4249AC261A494979 /* Pods */,
+				AD793EC3DC3305AA13178A35 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -59,6 +68,7 @@
 				10D19753212B42EE000E982C /* Main.storyboard */,
 				10D19756212B42EF000E982C /* Assets.xcassets */,
 				10D19758212B42EF000E982C /* LaunchScreen.storyboard */,
+				10EC4738212B565A0027C070 /* Controller */,
 				10D19761212B432E000E982C /* Other */,
 			);
 			path = SocialPostSearchDemo;
@@ -72,6 +82,31 @@
 			name = Other;
 			sourceTree = "<group>";
 		};
+		10EC4738212B565A0027C070 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				10EC4736212B564F0027C070 /* PostSearchViewController.swift */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		AD793EC3DC3305AA13178A35 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9F8D4D730F1302066C858DC3 /* Pods_SocialPostSearchDemo.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F1680E4E4249AC261A494979 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				0B31A36078107DA828C7C305 /* Pods-SocialPostSearchDemo.debug.xcconfig */,
+				091F56FE4EB4BAB074373434 /* Pods-SocialPostSearchDemo.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -79,9 +114,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 10D1975E212B42EF000E982C /* Build configuration list for PBXNativeTarget "SocialPostSearchDemo" */;
 			buildPhases = (
+				AE324E0B670557FD3760BC34 /* [CP] Check Pods Manifest.lock */,
 				10D19748212B42EE000E982C /* Sources */,
 				10D19749212B42EE000E982C /* Frameworks */,
 				10D1974A212B42EE000E982C /* Resources */,
+				F43A8D6536DA04ADA685EE3B /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -139,11 +176,53 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		AE324E0B670557FD3760BC34 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SocialPostSearchDemo-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F43A8D6536DA04ADA685EE3B /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-SocialPostSearchDemo/Pods-SocialPostSearchDemo-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftInstagram/SwiftInstagram.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftInstagram.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SocialPostSearchDemo/Pods-SocialPostSearchDemo-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		10D19748212B42EE000E982C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				10EC4737212B564F0027C070 /* PostSearchViewController.swift in Sources */,
 				10D19750212B42EE000E982C /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -286,10 +365,13 @@
 		};
 		10D1975F212B42EF000E982C /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0B31A36078107DA828C7C305 /* Pods-SocialPostSearchDemo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 33KNHRG5VB;
 				INFOPLIST_FILE = SocialPostSearchDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -303,10 +385,13 @@
 		};
 		10D19760212B42EF000E982C /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 091F56FE4EB4BAB074373434 /* Pods-SocialPostSearchDemo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 33KNHRG5VB;
 				INFOPLIST_FILE = SocialPostSearchDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
