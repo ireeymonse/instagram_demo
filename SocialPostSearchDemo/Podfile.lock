@@ -1,22 +1,30 @@
 PODS:
+  - Alamofire (4.7.3)
+  - AlamofireImage (3.3.1):
+    - Alamofire (~> 4.5)
   - SVProgressHUD (2.2.5)
   - SwiftInstagram (1.1.1):
     - SwiftInstagram/Core (= 1.1.1)
   - SwiftInstagram/Core (1.1.1)
 
 DEPENDENCIES:
+  - AlamofireImage (~> 3.3)
   - SVProgressHUD
   - SwiftInstagram (~> 1.1.1)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - Alamofire
+    - AlamofireImage
     - SVProgressHUD
     - SwiftInstagram
 
 SPEC CHECKSUMS:
+  Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
+  AlamofireImage: 3b35b586853abaf94ca1250f4e94cff3c21a4c0d
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   SwiftInstagram: 5f60415e522d1a7721073eb3a66f254a7c40fd63
 
-PODFILE CHECKSUM: 11f2e0383f63e3a2e26b4ff209e1ff930a89dae9
+PODFILE CHECKSUM: 2f8b54abcfc64366460c58d2968d3c3a6d513ac8
 
 COCOAPODS: 1.5.3

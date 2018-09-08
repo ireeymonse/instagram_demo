@@ -9,47 +9,100 @@
 import UIKit
 import SwiftInstagram
 import SVProgressHUD
+import AlamofireImage
+
+let mile = 1609
 
 class PostSearchViewController: UIViewController {
    @IBOutlet weak var tableView: UITableView!
+   @IBOutlet weak var distanceView: UIView!
+   @IBOutlet weak var distanceButton: UIButton!
+   @IBOutlet weak var distanceSlider: UISlider!
    
    var refreshControl = UIRefreshControl()
    
    var posts = [InstagramMedia]()
+   var distance = 1 * mile {
+      didSet {
+         distanceButton.setTitle("\(distance / mile) mi", for: .normal)
+         distanceSlider.setValue(Float(distance / mile), animated: true)
+      }
+   }
+   fileprivate var imageDownloader = ImageDownloader()
    
    override func viewDidLoad() {
       super.viewDidLoad()
       
-      // Login
-      authenticateIfNeeded { [weak self] (error) in
+      // attempt login
+      authenticateIfNeeded { [weak self] error in
          guard error == nil else {
             SVProgressHUD.showError(withStatus: error!.localizedDescription)
             return
          }
          
+         // initial load
          SVProgressHUD.show(withStatus: "Loading results")
-         self?.loadResults { (error, media) in
+         self?.reloadResults { error in
+            
+            guard let strongSelf = self else { return }
+            
             guard error == nil else {
                SVProgressHUD.showError(withStatus: error?.localizedDescription)
                return
             }
             
-            self?.posts = media ?? []
-            self?.tableView.reloadData()
-            
-            SVProgressHUD.dismiss()
+            // retry load if empty
+            if strongSelf.posts.isEmpty && strongSelf.distance < 3 * mile {
+               strongSelf.distance = 3 * mile
+               strongSelf.reloadResults { _ in
+                  SVProgressHUD.dismiss()
+               }
+               
+            } else {
+               SVProgressHUD.dismiss()
+            }
          }
       }
       
-      // config
-      
+      // config UI
       refreshControl.endRefreshing()
       refreshControl.tintColor = #colorLiteral(red: 0, green: 0.6, blue: 0.6, alpha: 1)
       refreshControl.addTarget(self, action: #selector(refreshResults(_:)), for: .valueChanged)
       tableView.refreshControl = refreshControl
+      
+      distanceView.isHidden = true
    }
    
-   func authenticateIfNeeded(_ completion: @escaping (NSError?)->Void) {
+   @IBAction func toggleDistanceView(_ sender: Any) {
+      distanceView.isHidden = !distanceView.isHidden
+   }
+   
+   @IBAction func distanceSliderChanged(_ sender: UISlider) {
+      let prev = distance
+      distance = Int(round(sender.value)) * mile
+      if prev != distance {
+         SVProgressHUD.show(withStatus: "Loading results")
+         reloadResults { _ in
+            SVProgressHUD.dismiss()
+         }
+      }
+   }
+   
+   @objc func refreshResults(_ sender: AnyObject) {
+      reloadResults { [weak self] error in
+         self?.refreshControl.endRefreshing()
+         
+         guard error == nil else {
+            SVProgressHUD.showError(withStatus: error?.localizedDescription)
+            return
+         }
+      }
+   }
+   
+   
+   // MARK: - Data
+   
+   func authenticateIfNeeded(_ completion: @escaping (Error?)->Void) {
       let api = Instagram.shared
       if api.isAuthenticated {
          completion(nil)
@@ -59,36 +112,29 @@ class PostSearchViewController: UIViewController {
       api.login(from: navigationController!,
                 withScopes: [.basic, .publicContent],
                 success: { completion(nil) },
-                failure: { completion($0 as NSError) })
+                failure: { completion($0) })
    }
    
-   
-   // MARK: - Data
-   
-   @objc func refreshResults(_ sender: AnyObject) {
-      loadResults { [weak self] (error, results) in
-         guard error == nil, let results = results else { return }
-         
-         self?.posts = results
-         self?.tableView.reloadData()
-         
-         self?.refreshControl.endRefreshing()
-      }
-   }
-   
-   private func loadResults(_ completion: @escaping (NSError?, [InstagramMedia]?) -> ()) {
+   private func reloadResults(_ completion: ((Error?) -> ())? = nil) {
       authenticateIfNeeded { (error) in
          guard error == nil else {
-            completion(error, nil)
+            completion?(error)
             return
          }
          
-         Instagram.shared.searchMedia(latitude: 19.382403, longitude: -99.175237,
-                                      success: { completion(nil, $0) },
-                                      failure: { completion($0 as NSError, nil) })
+         // Florida 19.357557, -99.181108
+         
+         Instagram.shared.searchMedia(
+            latitude: 19.357557, longitude: -99.181108, distance: self.distance,
+            success: { [weak self] media in
+               
+               self?.posts = media
+               self?.tableView.reloadData()
+               completion?(nil)
+               
+            }, failure: { completion?($0) })
       }
    }
-   
 }
 
 
@@ -106,12 +152,18 @@ extension PostSearchViewController: UITableViewDataSource, UITableViewDelegate {
       }
       
       let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! PostCell
-      
       let post = posts[indexPath.row]
       
       cell.titleLabel.text = post.caption?.text
       cell.userLabel.text = post.user.username
-      //FIXME: image thumbnail
+      cell.thumbnailView.af_setImage(
+         withURL: post.images.lowResolution.url,
+         imageTransition: .crossDissolve(0.2))
+      
+      cell.userPictureView.image = #imageLiteral(resourceName: "user")
+      if let url = post.user.profilePicture {
+         cell.userPictureView.af_setImage(withURL: url, placeholderImage: #imageLiteral(resourceName: "user"))
+      }
       
       return cell
    }
@@ -121,10 +173,11 @@ extension PostSearchViewController: UITableViewDataSource, UITableViewDelegate {
    }
 }
 
-
 class PostCell: UITableViewCell {
    @IBOutlet weak var titleLabel: UILabel!
+   @IBOutlet weak var userPictureView: UIImageView!
    @IBOutlet weak var userLabel: UILabel!
    @IBOutlet weak var thumbnailView: UIImageView!
 }
+
 

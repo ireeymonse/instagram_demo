@@ -7,4 +7,5 @@ source 'https://github.com/CocoaPods/Specs.git'
 target 'SocialPostSearchDemo' do
    pod 'SVProgressHUD'
    pod 'SwiftInstagram', '~> 1.1.1'
+   pod 'AlamofireImage', '~> 3.3'
 end

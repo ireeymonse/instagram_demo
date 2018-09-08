@@ -12,16 +12,16 @@ public struct InstagramUser: Decodable {
     // MARK: - Properties
 
     /// The user identifier.
-    public let id: String
+    public let id: String?
 
     /// The user's username.
     public let username: String
 
     /// The URL of the user's profile picture.
-    public let profilePicture: URL
+    public let profilePicture: URL?
 
     /// The user's full name.
-    public let fullName: String
+    public let fullName: String?
 
     /// The text of the user's biography.
     public let bio: String?
