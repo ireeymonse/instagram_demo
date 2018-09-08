@@ -49,5 +49,13 @@
 	<string>1f59b8b3d71e455b923e66a0981cdb5c</string>
 	<key>InstagramRedirectURI</key>
 	<string>http://example.com</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Lets you see your closest posts!</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Lets you see your closest posts!</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Lets you see your closest posts!</string>
+	<key>NSLocationUsageDescription</key>
+	<string>Lets you see your closest posts!</string>
 </dict>
 </plist>

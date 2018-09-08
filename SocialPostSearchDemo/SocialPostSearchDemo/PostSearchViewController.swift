@@ -10,17 +10,21 @@ import UIKit
 import SwiftInstagram
 import SVProgressHUD
 import AlamofireImage
+import MapKit
 
 let mile = 1609
 
 class PostSearchViewController: UIViewController {
+   
    @IBOutlet weak var tableView: UITableView!
    @IBOutlet weak var distanceView: UIView!
    @IBOutlet weak var distanceButton: UIButton!
    @IBOutlet weak var distanceSlider: UISlider!
+   @IBOutlet weak var locationLabel: UILabel!
    
-   var refreshControl = UIRefreshControl()
+   private var refreshControl = UIRefreshControl()
    
+   var api: InstagramAPI = Instagram.shared
    var posts = [InstagramMedia]()
    var distance = 1 * mile {
       didSet {
@@ -30,39 +34,11 @@ class PostSearchViewController: UIViewController {
    }
    fileprivate var imageDownloader = ImageDownloader()
    
+   fileprivate let locationManager = CLLocationManager()
+   fileprivate var location = CLLocation(latitude: 19.357557, longitude: -99.181108)
+   
    override func viewDidLoad() {
       super.viewDidLoad()
-      
-      // attempt login
-      authenticateIfNeeded { [weak self] error in
-         guard error == nil else {
-            SVProgressHUD.showError(withStatus: error!.localizedDescription)
-            return
-         }
-         
-         // initial load
-         SVProgressHUD.show(withStatus: "Loading results")
-         self?.reloadResults { error in
-            
-            guard let strongSelf = self else { return }
-            
-            guard error == nil else {
-               SVProgressHUD.showError(withStatus: error?.localizedDescription)
-               return
-            }
-            
-            // retry load if empty
-            if strongSelf.posts.isEmpty && strongSelf.distance < 3 * mile {
-               strongSelf.distance = 3 * mile
-               strongSelf.reloadResults { _ in
-                  SVProgressHUD.dismiss()
-               }
-               
-            } else {
-               SVProgressHUD.dismiss()
-            }
-         }
-      }
       
       // config UI
       refreshControl.endRefreshing()
@@ -71,6 +47,34 @@ class PostSearchViewController: UIViewController {
       tableView.refreshControl = refreshControl
       
       distanceView.isHidden = true
+      locationLabel.superview?.isHidden = true
+      
+      // initial load
+      reloadResults { [weak self] error in
+         guard let strongSelf = self else { return }
+         guard error == nil else {
+            SVProgressHUD.showError(withStatus: error?.localizedDescription)
+            return
+         }
+         
+         strongSelf.reloadLocationName()
+         
+         // retry load if empty
+         if strongSelf.posts.isEmpty && strongSelf.distance < 3 * mile {
+            strongSelf.distance = 3 * mile
+            strongSelf.reloadResults()
+         }
+      }
+   }
+   
+   override func viewWillAppear(_ animated: Bool) {
+      super.viewWillAppear(animated)
+      if !api.isAuthenticated {
+         navigationItem.leftBarButtonItem?.title = "Log in"
+         refreshControl.endRefreshing()
+      } else {
+         navigationItem.leftBarButtonItem?.title = "Log out"
+      }
    }
    
    @IBAction func toggleDistanceView(_ sender: Any) {
@@ -81,58 +85,86 @@ class PostSearchViewController: UIViewController {
       let prev = distance
       distance = Int(round(sender.value)) * mile
       if prev != distance {
-         SVProgressHUD.show(withStatus: "Loading results")
-         reloadResults { _ in
-            SVProgressHUD.dismiss()
-         }
+         reloadResults()
       }
    }
    
    @objc func refreshResults(_ sender: AnyObject) {
-      reloadResults { [weak self] error in
-         self?.refreshControl.endRefreshing()
-         
-         guard error == nil else {
+      reloadResults { error in
+         if error != nil {
             SVProgressHUD.showError(withStatus: error?.localizedDescription)
-            return
          }
       }
+   }
+   
+   @IBAction func logOutButtonTapped(_ sender: Any) {
+      api.logout()
+      posts.removeAll()
+      tableView.reloadData()
+      
+      // show login interface
+      api.login(from: navigationController!, withScopes: [.basic, .publicContent], success: {
+         self.reloadResults()
+      }, failure: nil)
    }
    
    
    // MARK: - Data
    
-   func authenticateIfNeeded(_ completion: @escaping (Error?)->Void) {
-      let api = Instagram.shared
-      if api.isAuthenticated {
-         completion(nil)
+   private func reloadResults(_ completion: ((Error?) -> Void)? = nil) {
+      guard Reachability.isConnectedToNetwork() else {
+         refreshControl.endRefreshing()
+         completion?("Please, connect to the Internet.")
          return
       }
       
-      api.login(from: navigationController!,
-                withScopes: [.basic, .publicContent],
-                success: { completion(nil) },
-                failure: { completion($0) })
-   }
-   
-   private func reloadResults(_ completion: ((Error?) -> ())? = nil) {
-      authenticateIfNeeded { (error) in
-         guard error == nil else {
-            completion?(error)
-            return
+      // load routine
+      func load() {
+         if !refreshControl.isRefreshing {
+            tableView.setContentOffset(
+               CGPoint(x: 0, y: tableView.contentOffset.y - refreshControl.frame.height),
+               animated: true)
+            refreshControl.beginRefreshing()
          }
          
-         // Florida 19.357557, -99.181108
+         // find location
+         enableLocationServices()
          
-         Instagram.shared.searchMedia(
-            latitude: 19.357557, longitude: -99.181108, distance: self.distance,
+         api.searchMedia(
+            coordinates: location.coordinate, distance: distance,
             success: { [weak self] media in
                
                self?.posts = media
                self?.tableView.reloadData()
+               self?.refreshControl.endRefreshing()
                completion?(nil)
                
             }, failure: { completion?($0) })
+      }
+      
+      // auth and load?
+      guard api.isAuthenticated else {
+         api.login(from: navigationController!,
+                   withScopes: [.basic, .publicContent],
+                   success: { load() },
+                   failure: { completion?($0) })
+         return
+      }
+      
+      // just load
+      load()
+   }
+   
+   
+   // MARK: - Navigation
+   
+   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+      super.prepare(for: segue, sender: sender)
+      if let details = segue.destination as? PostDetailsViewController,
+         let cell = sender as? UITableViewCell,
+         let i = tableView.indexPath(for: cell)?.row
+      {
+         details.post = posts[i]
       }
    }
 }
@@ -178,6 +210,46 @@ class PostCell: UITableViewCell {
    @IBOutlet weak var userPictureView: UIImageView!
    @IBOutlet weak var userLabel: UILabel!
    @IBOutlet weak var thumbnailView: UIImageView!
+}
+
+
+// MARK: - Location
+
+extension PostSearchViewController: CLLocationManagerDelegate {
+   
+   func enableLocationServices() {
+      locationManager.delegate = self
+      locationManager.desiredAccuracy = kCLLocationAccuracyThreeKilometers
+      locationManager.requestWhenInUseAuthorization()
+      locationManager.startUpdatingLocation()
+   }
+   
+   func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+      location = locations.last ?? location
+      if api.isAuthenticated {
+         reloadResults()
+         reloadLocationName()
+      }
+   }
+   
+   func reloadLocationName() {
+      // helper function
+      func meters(from coordinate: CLLocationCoordinate2D) -> CLLocationDistance {
+         let loc = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+         return location.distance(from: loc)
+      }
+      
+      api.searchLocation(coordinates: location.coordinate, distance: 5, facebookPlacesId: nil, success: { locations in
+         let matches = locations.map { ($0.name, meters(from: $0.coordinates)) }
+            .sorted { $0.1 < $1.1 }
+         
+         if let closest = matches.first {
+            self.locationLabel.text = "Near \(closest.0)"
+            self.locationLabel.superview?.isHidden = false
+         }
+         
+      }, failure: nil)
+   }
 }
 
 
